@@ -54,7 +54,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--input_artifact", 
         type = str,
-        help = "The artifact to be input for cleaning."
+        help = "The artifact to be input for cleaning.",
         required = True
     )
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output_description", 
         type = str,
-        help = 'A description of the output.'
+        help = 'A description of the output.',
         required = True
     )
 
