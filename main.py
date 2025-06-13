@@ -38,6 +38,7 @@ def go(config: DictConfig):
 
         if "download" in active_steps:
             # Download file and load in W&B
+            print(f"Sample filename from config: {config['etl']['sample']}")
             _ = mlflow.run(
                 f"{config['main']['repository']}#components/get_data",
                 "main",
