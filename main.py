@@ -40,7 +40,7 @@ def go(config: DictConfig):
             # Download file and load in W&B
             print(f"Sample filename from config: {config['etl']['sample']}")
             _ = mlflow.run(
-                f"{config['main']['repository']}#components/get_data",
+                f"{config['main']['components_repository']}/get_data",
                 "main",
                 version='main',
                 env_manager="conda",
@@ -54,7 +54,7 @@ def go(config: DictConfig):
 
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(
-                f"{config['main']['repository']}#src/basic_cleaning",
+                "src/basic_cleaning",
                 version='main',
                 env_manager='conda',
                 parameters={
@@ -70,7 +70,7 @@ def go(config: DictConfig):
         if "data_check" in active_steps:
 
             _ = mlflow.run(
-                f"{config['main']['repository']}#src/data_check",
+                "src/data_check",
                 version='main',
                 env_manager='conda',
                 parameters={
@@ -84,7 +84,7 @@ def go(config: DictConfig):
 
         if "data_split" in active_steps:
             _ = mlflow.run(
-                f"{config['main']['repository']}#components/train_val_test_split",
+                f"{config['main']['components_repository']}/train_val_test_split",
                 'main',
                 parameters = {
                         'input': 'clean_sample.csv:latest',
@@ -105,7 +105,7 @@ def go(config: DictConfig):
             # step
 
             _ = mlflow.run(
-                f"{config['main']['repository']}#src/train_random_forest",
+                "src/train_random_forest",
                 version='main',
                 env_manager='conda',
                 parameters={
@@ -122,7 +122,7 @@ def go(config: DictConfig):
         if "test_regression_model" in active_steps:
 
             _ = mlflow.run(
-                f"{config['main']['repository']}#components/test_regression_model",
+                f"{config['main']['components_repository']}/test_regression_model",
                 'main',
                 parameters = {
                         'mlflow_model': 'random_forest_export:prod',
