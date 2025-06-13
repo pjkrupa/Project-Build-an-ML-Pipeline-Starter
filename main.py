@@ -54,8 +54,9 @@ def go(config: DictConfig):
 
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(
-                "src/basic_cleaning",
-                version='main',
+                f"{config['main']['src_repository']}/basic_cleaning",
+                version='main'
+                entry_point="main",
                 env_manager='conda',
                 parameters={
                     "input_artifact": f"{config['etl']['sample']}:latest",
@@ -70,8 +71,9 @@ def go(config: DictConfig):
         if "data_check" in active_steps:
 
             _ = mlflow.run(
-                "src/data_check",
+                f"{config['main']['src_repository']}/data_check",
                 version='main',
+                entry_point="main",
                 env_manager='conda',
                 parameters={
                     "csv": "clean_sample.csv:latest",
@@ -85,7 +87,8 @@ def go(config: DictConfig):
         if "data_split" in active_steps:
             _ = mlflow.run(
                 f"{config['main']['components_repository']}/train_val_test_split",
-                'main',
+                version='main',
+                entry_point="main",
                 parameters = {
                         'input': 'clean_sample.csv:latest',
                         'test_size': config['modeling']['test_size'],
@@ -105,8 +108,9 @@ def go(config: DictConfig):
             # step
 
             _ = mlflow.run(
-                "src/train_random_forest",
+                f"{config['main']['src_repository']}/train_random_forest",
                 version='main',
+                entry_point="main",
                 env_manager='conda',
                 parameters={
                     "trainval_artifact": 'trainval_data.csv:latest',
@@ -123,7 +127,9 @@ def go(config: DictConfig):
 
             _ = mlflow.run(
                 f"{config['main']['components_repository']}/test_regression_model",
-                'main',
+                entry_point="main",
+                version='main',
+                env_manager='conda',
                 parameters = {
                         'mlflow_model': 'random_forest_export:prod',
                         'test_dataset': 'test_data.csv:latest'
