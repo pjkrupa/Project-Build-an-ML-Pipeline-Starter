@@ -39,7 +39,7 @@ def go(config: DictConfig):
         if "download" in active_steps:
             # Download file and load in W&B
             _ = mlflow.run(
-                f"{config['main']['components_repository']}#components/get_data",
+                f"{config['main']['repository']}#components/get_data",
                 "main",
                 version='main',
                 env_manager="conda",
@@ -53,7 +53,7 @@ def go(config: DictConfig):
 
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(
-                f"{config['main']['components_repository']}#src/basic_cleaning",
+                f"{config['main']['repository']}#src/basic_cleaning",
                 version='main',
                 env_manager='conda',
                 parameters={
@@ -69,7 +69,7 @@ def go(config: DictConfig):
         if "data_check" in active_steps:
 
             _ = mlflow.run(
-                f"{config['main']['components_repository']}#src/data_check",
+                f"{config['main']['repository']}#src/data_check",
                 version='main',
                 env_manager='conda',
                 parameters={
@@ -82,10 +82,13 @@ def go(config: DictConfig):
             )
 
         if "data_split" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                f"{config['main']['repository']}#components/train_val_test_split",
+                'main',
+                parameters = {
+                        ...
+                }
+            )
 
         if "train_random_forest" in active_steps:
 

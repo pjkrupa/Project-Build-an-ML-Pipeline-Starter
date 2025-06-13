@@ -1,5 +1,5 @@
 main:
-  components_repository: "https://github.com/pjkrupa/Project-Build-an-ML-Pipeline-Starter"
+  repository: "https://github.com/pjkrupa/Project-Build-an-ML-Pipeline-Starter"
   # All the intermediate files will be copied to this directory at the end of the run.
   # Set this to null if you are running in prod
   project_name: nyc_airbnb
