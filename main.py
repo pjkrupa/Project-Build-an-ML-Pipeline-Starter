@@ -32,6 +32,7 @@ def go(config: DictConfig):
     steps_par = config['main']['steps']
     active_steps = steps_par.split(",") if steps_par != "all" else _steps
 
+    
     # Move to a temporary directory
     with tempfile.TemporaryDirectory() as tmp_dir:
 
@@ -66,6 +67,7 @@ def go(config: DictConfig):
             )
 
         if "data_check" in active_steps:
+
             _ = mlflow.run(
                 f"{config['main']['components_repository']}#src/data_check",
                 version='main',
@@ -73,7 +75,7 @@ def go(config: DictConfig):
                 parameters={
                     "csv": "clean_sample.csv:latest",
                     "ref": "clean_sample.csv:reference",
-                    "k1_threshold": config["data_check"]["kl_threshold"],
+                    "kl_threshold": config["data_check"]["kl_threshold"],
                     "min_price": config["etl"]["min_price"],
                     "max_price": config["etl"]["max_price"],
                 }
