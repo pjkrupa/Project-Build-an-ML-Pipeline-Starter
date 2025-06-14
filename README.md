@@ -6,6 +6,13 @@ to be retrained with the same cadence, necessitating an end-to-end pipeline that
 
 In this project you will build such a pipeline.
 
+## Link to W&B project:
+https://wandb.ai/peter-krupa-western-governors-university/nyc_airbnb/
+
+## Link to GitHub repository:
+https://github.com/pjkrupa/Project-Build-an-ML-Pipeline-Starter
+
+
 ## Table of contents
 
 - [Preliminary steps](#preliminary-steps)
