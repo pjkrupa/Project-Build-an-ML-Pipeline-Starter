@@ -23,9 +23,6 @@ _steps = [
 # This automatically reads in the configuration
 @hydra.main(config_name='config')
 def go(config: DictConfig):
-    print("\n------ FULL CONFIG ------")
-    print(OmegaConf.to_yaml(config))
-    print("-------------------------\n")
 
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
